@@ -17,25 +17,30 @@ class Transcription:
 
 class WhisperTranscriber:
     def __init__(self, model_name: str = "small", model=None):
+        self.model_name = model_name
+        self.model = model
+
+    def _get_model(self):
+        if self.model is not None:
+            return self.model
         try:
-            if model is not None:
-                self.model = model
-            else:
-                if WhisperModel is None:
-                    raise ImportError("faster-whisper is not installed")
-                self.model = WhisperModel(
-                    model_name,
-                    device="cpu",
-                    compute_type="int8",
-                )
+            if WhisperModel is None:
+                raise ImportError("faster-whisper is not installed")
+            self.model = WhisperModel(
+                self.model_name,
+                device="cpu",
+                compute_type="int8",
+            )
+            return self.model
         except Exception as exc:
             raise TranscriptionError(
                 "Speech model could not be loaded. Check the network on first run and try again."
             ) from exc
 
     def transcribe(self, path: Path) -> Transcription:
+        model = self._get_model()
         try:
-            segments, info = self.model.transcribe(
+            segments, info = model.transcribe(
                 str(path),
                 language=None,
                 vad_filter=True,

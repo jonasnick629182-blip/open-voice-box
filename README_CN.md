@@ -59,6 +59,8 @@ OVB_OPENAI_MODEL=gpt-5-mini
 
 不要把 `.env` 提交到 GitHub。
 
+应用顶部的 **Model settings** 区域可以在 Ollama 与 OpenAI 之间切换，并修改当前模型名称。OpenAI 模式仍然需要通过环境变量或 `.env` 提供 `OPENAI_API_KEY`。
+
 ## 配置项
 
 | 变量 | 默认值 | 用途 |

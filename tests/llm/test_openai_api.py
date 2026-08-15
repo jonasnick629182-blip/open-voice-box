@@ -37,10 +37,11 @@ def test_openai_provider_uses_responses_api(monkeypatch):
     }
 
 
-def test_openai_provider_requires_key(monkeypatch):
+def test_openai_provider_requires_key_when_generating(monkeypatch):
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    provider = OpenAIProvider("gpt-5-mini")
     with pytest.raises(MissingCredentialError, match="OPENAI_API_KEY"):
-        OpenAIProvider("gpt-5-mini")
+        provider.generate([Message("user", "hello")])
 
 
 def test_openai_errors_are_normalized(monkeypatch):

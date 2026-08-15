@@ -86,3 +86,16 @@ def test_failed_transcription_does_not_add_history():
     except TranscriptionError:
         pass
     assert controller.history == []
+
+
+def test_provider_can_be_switched_for_future_turns():
+    first = FakeProvider()
+    second = FakeProvider()
+    controller = ConversationController(
+        FakeRecorder(), FakeTranscriber(), first, FakeSpeaker()
+    )
+    controller.set_provider(second)
+    controller.start_recording()
+    controller.finish_turn()
+    assert second.messages == [Message("user", "你好")]
+    assert first.messages is None

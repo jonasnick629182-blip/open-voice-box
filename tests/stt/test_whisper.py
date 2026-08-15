@@ -37,3 +37,12 @@ def test_empty_transcript_is_rejected():
     transcriber = WhisperTranscriber("small", model=EmptyModel())
     with pytest.raises(TranscriptionError, match="understand"):
         transcriber.transcribe(Path("sample.wav"))
+
+
+def test_model_loading_is_lazy_and_failure_is_friendly(monkeypatch):
+    import open_voice_box.stt.whisper as whisper_module
+
+    monkeypatch.setattr(whisper_module, "WhisperModel", None)
+    transcriber = WhisperTranscriber("small")
+    with pytest.raises(TranscriptionError, match="loaded"):
+        transcriber.transcribe(Path("sample.wav"))

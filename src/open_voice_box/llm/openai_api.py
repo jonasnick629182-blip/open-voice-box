@@ -6,10 +6,6 @@ from open_voice_box.models import Message
 
 class OpenAIProvider:
     def __init__(self, model: str, client=None):
-        if not os.getenv("OPENAI_API_KEY"):
-            raise MissingCredentialError(
-                "OpenAI mode requires the OPENAI_API_KEY environment variable."
-            )
         self.model = model
         self.client = client
 
@@ -26,6 +22,10 @@ class OpenAIProvider:
         return self.client
 
     def generate(self, messages: list[Message]) -> str:
+        if not os.getenv("OPENAI_API_KEY"):
+            raise MissingCredentialError(
+                "OpenAI mode requires the OPENAI_API_KEY environment variable."
+            )
         try:
             response = self._get_client().responses.create(
                 model=self.model,

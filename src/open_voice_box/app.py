@@ -22,7 +22,7 @@ def main() -> None:
     config = AppConfig.from_env()
     controller = build_controller(config)
     root = tk.Tk()
-    MainWindow(root, controller, provider_name=config.provider)
+    MainWindow(root, controller, config=config, provider_factory=build_provider)
     root.mainloop()
 
 

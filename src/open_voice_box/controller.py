@@ -12,6 +12,9 @@ class ConversationController:
         self.speaker = speaker
         self.history: list[Message] = []
 
+    def set_provider(self, provider) -> None:
+        self.provider = provider
+
     def start_recording(self) -> None:
         self.recorder.start()
 

@@ -59,6 +59,8 @@ OVB_OPENAI_MODEL=gpt-5-mini
 
 Never commit `.env`.
 
+The **Model settings** panel in the app can switch between Ollama and OpenAI and change the active model name at runtime. OpenAI mode still requires `OPENAI_API_KEY` in the environment or `.env`.
+
 ## Configuration
 
 | Variable | Default | Purpose |
