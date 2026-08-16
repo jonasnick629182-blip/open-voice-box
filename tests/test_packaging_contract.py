@@ -37,3 +37,12 @@ def test_spec_declares_required_macos_bundle_metadata():
     )
     for text in required:
         assert text in spec
+
+
+def test_build_script_runs_icon_pyinstaller_and_verifier():
+    script = (ROOT / "scripts/build_macos_app.sh").read_text()
+
+    assert 'python scripts/generate_macos_icon.py' in script
+    assert 'python -m PyInstaller --clean --noconfirm packaging/OpenVoiceBox.spec' in script
+    assert 'python scripts/verify_macos_bundle.py "dist/Open Voice Box.app"' in script
+    assert 'uname -s' in script
