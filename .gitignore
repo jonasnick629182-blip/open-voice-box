@@ -1,0 +1,12 @@
+.venv/
+.env
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+*.wav
+*.aiff
+*.mp3
+build/
+dist/
+*.egg-info/

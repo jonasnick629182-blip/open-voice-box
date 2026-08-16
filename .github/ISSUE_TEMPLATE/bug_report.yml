@@ -1,0 +1,35 @@
+name: Bug report
+description: Report a reproducible Open Voice Box problem
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: textarea
+    attributes:
+      label: What happened?
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: macOS / OS version
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Python version
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Provider
+      options: [Ollama, OpenAI]
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Reproduction steps
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Logs
+      description: Remove API keys, personal data, and private transcripts before posting.
