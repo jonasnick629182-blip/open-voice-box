@@ -54,5 +54,9 @@ class WhisperTranscriber:
         except Exception as exc:
             raise TranscriptionError("Speech transcription failed. Please try again.") from exc
         if not text:
-            raise TranscriptionError("I could not understand any speech. Please try again.")
+            raise TranscriptionError(
+                "I could not understand any speech. Check macOS System Settings > "
+                "Privacy & Security > Microphone and make sure Terminal/Python has "
+                "microphone access, then try again."
+            )
         return Transcription(text=text, language=getattr(info, "language", None))
