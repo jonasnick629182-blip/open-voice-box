@@ -20,3 +20,20 @@ def test_packaging_extra_contains_pyinstaller_and_pillow():
 
     assert any(item.startswith("pyinstaller") for item in requirements)
     assert any(item.startswith("pillow") for item in requirements)
+
+
+def test_spec_declares_required_macos_bundle_metadata():
+    spec = (ROOT / "packaging/OpenVoiceBox.spec").read_text()
+
+    required = (
+        'name="Open Voice Box.app"',
+        'bundle_identifier="io.github.jonasnick629182-blip.openvoicebox"',
+        'version="0.2.0"',
+        '"NSMicrophoneUsageDescription"',
+        '"CFBundleDisplayName": "Open Voice Box"',
+        'console=False',
+        'collect_data_files("faster_whisper")',
+        'collect_dynamic_libs("ctranslate2")',
+    )
+    for text in required:
+        assert text in spec
