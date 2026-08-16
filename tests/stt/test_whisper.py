@@ -33,9 +33,9 @@ class EmptyModel:
         return iter([]), Info()
 
 
-def test_empty_transcript_is_rejected():
+def test_empty_transcript_is_rejected_with_microphone_guidance():
     transcriber = WhisperTranscriber("small", model=EmptyModel())
-    with pytest.raises(TranscriptionError, match="understand"):
+    with pytest.raises(TranscriptionError, match="Microphone"):
         transcriber.transcribe(Path("sample.wav"))
 
 
