@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "open-voice-box"
-version = "0.1.0"
+version = "0.2.0"
 description = "Local-first bilingual voice AI companion"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -21,6 +21,10 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest"]
+packaging = [
+  "pyinstaller>=6.21,<7",
+  "pillow>=11,<13",
+]
 
 [project.scripts]
 open-voice-box = "open_voice_box.app:main"
