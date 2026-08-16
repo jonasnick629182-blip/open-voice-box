@@ -2,16 +2,33 @@
 
 A local-first bilingual voice AI companion for macOS. Press a button, speak in Chinese or English, and hear the AI answer aloud.
 
+![Open Voice Box demo](open-voice-box-demo.png)
+
+> **V0.1:** macOS-first, push-to-talk, Ollama-first, with optional cloud model support.
+
+## What it does
+
+Open Voice Box turns your Mac into a simple desktop voice AI companion:
+
+1. Press **Speak** and talk in Chinese or English.
+2. `faster-whisper` transcribes your speech locally.
+3. The request is sent to a local Ollama model by default, or optionally to OpenAI.
+4. The answer appears in the app and is spoken aloud with macOS text-to-speech.
+
 ## Why Open Voice Box?
 
 - **Local-first:** Ollama is the default; no paid API key is required.
 - **Bilingual:** local speech recognition auto-detects Chinese and English.
+- **Voice in, voice out:** microphone input, visible answers, and audible replies.
 - **Optional cloud mode:** switch to OpenAI through environment configuration.
-- **Extensible:** the provider, STT, recorder, and TTS layers are isolated for future hardware work.
+- **Extensible:** provider, STT, recorder, and TTS layers are isolated for future hardware work.
+- **Open source:** built in public with reproducible setup, tests, issues, and release milestones.
 
 ## V0.1
 
-V0.1 is macOS-first and uses push-to-talk. Wake words, persistent memory, Raspberry Pi, ESP32, camera, and animated faces are intentionally deferred.
+V0.1 is the first working prototype. It has been validated on an Apple Silicon Mac with real Chinese and English voice turns, including microphone permission handling, missing Ollama/model recovery, and temporary audio cleanup.
+
+Wake words, persistent memory, Raspberry Pi, ESP32, camera, and animated faces are intentionally deferred to later iterations.
 
 ## Quick start
 
@@ -100,7 +117,14 @@ python -m pytest -q
 
 ## Roadmap
 
-- Wake word
+Active roadmap issues:
+
+- [#2 — Wake-word activation for hands-free conversations](https://github.com/jonasnick629182-blip/open-voice-box/issues/2)
+- [#3 — Improve live transcription, VAD, and silence handling](https://github.com/jonasnick629182-blip/open-voice-box/issues/3)
+- [#4 — Package Open Voice Box as a standalone macOS app](https://github.com/jonasnick629182-blip/open-voice-box/issues/4)
+
+Longer-term ideas:
+
 - Better multilingual/local TTS
 - Persistent opt-in memory
 - Linux / Raspberry Pi validation
