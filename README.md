@@ -4,7 +4,7 @@ A local-first bilingual voice AI companion for macOS. Press a button, speak in C
 
 ![Open Voice Box demo](open-voice-box-demo.png)
 
-> **V0.1:** macOS-first, push-to-talk, Ollama-first, with optional cloud model support.
+> **V0.2:** macOS-first, push-to-talk, Ollama-first, with a reproducible unsigned `.app` build for Apple Silicon.
 
 ## What it does
 
@@ -30,7 +30,49 @@ V0.1 is the first working prototype. It has been validated on an Apple Silicon M
 
 Wake words, persistent memory, Raspberry Pi, ESP32, camera, and animated faces are intentionally deferred to later iterations.
 
-## Quick start
+## macOS app build (v0.2)
+
+V0.2 can be packaged as an unsigned Apple Silicon macOS application. Ollama remains an external prerequisite and the faster-whisper model is downloaded on first speech use.
+
+### Prerequisites
+
+- Apple Silicon Mac
+- Ollama installed and running
+- Default local model pulled with `ollama pull qwen3:4b-instruct`
+- Python 3.11+ is required to build the `.app`, but not to launch the finished bundle
+
+### Build
+
+```bash
+git clone https://github.com/jonasnick629182-blip/open-voice-box.git
+cd open-voice-box
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e '.[dev,packaging]'
+bash scripts/build_macos_app.sh
+```
+
+The generated application is:
+
+```text
+dist/Open Voice Box.app
+```
+
+Open it from Finder or run:
+
+```bash
+open "dist/Open Voice Box.app"
+```
+
+### Unsigned app / Gatekeeper
+
+V0.2 is not signed or notarized. On first launch, macOS may block the app. In Finder, Control-click **Open Voice Box.app**, choose **Open**, and confirm the prompt. Do not disable Gatekeeper globally.
+
+### Microphone permission
+
+The app declares its microphone usage purpose in its macOS bundle. When prompted, allow **Open Voice Box** under **System Settings → Privacy & Security → Microphone**.
+
+## Quick start from source
 
 ### 1. Install prerequisites
 
@@ -93,7 +135,7 @@ The **Model settings** panel in the app can switch between Ollama and OpenAI and
 
 ### Microphone permission
 
-If recording fails, open macOS **System Settings → Privacy & Security → Microphone** and allow microphone access for the terminal/Python application you use to run Open Voice Box.
+For the packaged v0.2 app, allow **Open Voice Box** in macOS **System Settings → Privacy & Security → Microphone**. When running from source, permission may instead appear under the terminal/Python application used to start it.
 
 ### Ollama is not reachable
 
@@ -113,6 +155,14 @@ The local speech model is downloaded on first use. Retry with a working internet
 ```bash
 python -m pip install -e '.[dev]'
 python -m pytest -q
+```
+
+Packaging smoke build on macOS:
+
+```bash
+python -m pip install -e '.[dev,packaging]'
+bash scripts/build_macos_app.sh
+python scripts/verify_macos_bundle.py "dist/Open Voice Box.app"
 ```
 
 ## Roadmap
